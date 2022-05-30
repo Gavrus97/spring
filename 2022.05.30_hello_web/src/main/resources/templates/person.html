@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Persons</title>
+</head>
+<body>
+<ul th:each = "person : ${listPersons}" >
+    <li><span th:text = "${person.name}"></span> <span th:text="${person.lastname}"></span></li>
+</ul>
+</body>
+</html>
