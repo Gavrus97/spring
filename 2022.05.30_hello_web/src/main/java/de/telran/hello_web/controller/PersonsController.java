@@ -4,6 +4,7 @@ import de.telran.hello_web.model.Person;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,8 +21,14 @@ public class PersonsController {
     }
 
     @GetMapping("/persons")
-    public String persons(Model model, PersonsController contr) {
-        model.addAttribute("listPersons", contr.getPersons());
+    public String persons(Model model) {
+        model.addAttribute("listPersons", getPersons());
         return "person";
+    }
+
+    @GetMapping("/persons-json")
+    @ResponseBody
+    public List<Person> getPersonsJson(Model model){
+        return getPersons();
     }
 }
