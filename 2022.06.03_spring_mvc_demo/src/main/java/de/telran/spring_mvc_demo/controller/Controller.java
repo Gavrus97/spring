@@ -1,5 +1,6 @@
 package de.telran.spring_mvc_demo.controller;
 
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -17,7 +18,8 @@ public class Controller {
     }
 
     @GetMapping("/dear-{name}")
-    public String getResponseWithName(@PathVariable String name){
+    public String getResponseWithName(@PathVariable String name, Model model){
+        model.addAttribute("nameToShow", name);
         return "dear-name";
     }
 }
