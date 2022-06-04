@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>People</title>
+</head>
+<body>
+<h3>
+    List of Persons
+</h3>
+<div>
+    <a th:href="@{/new-person}">Add new person</a>
+</div>
+<ul>
+    <li th:each="person : ${persons}">
+        <div>
+            <p th:text="${person.name} + ' ' +${person.lastname}"></p>
+            <a th:href="@{/show{id}(id=${person.getId()})}">Show details</a>
+            <a th:href="@{/edit{id}(id=${person.getId()})}">Update</a>
+        </div>
+        <br>
+        <form th:method="POST" th:action="@{/delete{id}(id=${person.getId()})}" th:object="${person}">
+            <input type="submit" value="Delete">
+        </form>
+    </li>
+</ul>
+
+</body>
+</html>

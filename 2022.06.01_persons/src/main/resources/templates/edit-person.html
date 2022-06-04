@@ -10,8 +10,8 @@
 
 <div class="row">
     <div class="col m6 offset-m3">
-        <h3>Person</h3>
-        <form th:action="@{/save-person}" th:object="${person}" method="post">
+        <h3>Add person</h3>
+        <form th:method="POST" th:action="@{/save-person}" th:object="${person}" >
             <input id="id" name="id" type="hidden" th:field="*{id}">
             <div class="row">
                 <div class="input-field col s6">
@@ -30,7 +30,8 @@
             </div>
             <div class="row">
                 <div class="col m12">
-                    <button class="waves-effect waves-light btn indigo darken-3" value="Save">Save</button>
+                    <input type="submit" value="Create">
+                    <button class="waves-effect waves-light btn indigo darken-3" type="submit" value="Save">Save</button>
                     <a class="waves-effect waves-light btn red darken-3" href="/">Cancel</a>
                 </div>
             </div>

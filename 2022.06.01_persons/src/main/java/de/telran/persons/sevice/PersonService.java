@@ -4,6 +4,8 @@ import de.telran.persons.model.Person;
 import de.telran.persons.repo.PersonRepo;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PersonService {
 
@@ -13,7 +15,19 @@ public class PersonService {
         this.personRepo = personRepo;
     }
 
-    public Person save(Person person){
+    public Person save(Person person) {
         return personRepo.save(person);
+    }
+
+    public Person remove(Person person) {
+        return personRepo.delete(person.getId());
+    }
+
+    public List<Person> getAll(){
+        return personRepo.findAll();
+    }
+
+    public Person get(int id){
+        return personRepo.find(id).orElse(null);
     }
 }

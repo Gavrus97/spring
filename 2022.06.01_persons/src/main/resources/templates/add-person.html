@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Person</title>
+</head>
+<body>
+<h3>Adding a new person</h3>
+<form th:method="POST" th:action="@{/save-person}" th:object="${person}">
+    <input type="text" th:field="*{name}" id="name">
+    <label for="name">Name: </label>
+    <br>
+    <input type="text" th:field="*{lastname}" id="lastname">
+    <label for="lastname">Last Name: </label>
+    <br>
+    <input type="number" th:field="*{age}" id="age">
+    <label for="age">Age: </label>
+    <br>
+    <input type="submit" value="Add">
+    <br>
+    <a href="/">Cancel</a>
+</form>
+</body>
+</html>
