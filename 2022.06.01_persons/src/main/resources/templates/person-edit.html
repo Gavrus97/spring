@@ -3,25 +3,40 @@
 <head>
     <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
     <title>Update person</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
 <body>
-<h2 th:text="'Update ' + ${person.name} + ' ' + ${person.lastname}"></h2>
-<form th:method="POST" th:action="@{/update}" th:object="${person}">
-    <input type="text" th:field="*{name}" id="name">
-    <label for="name">Name: </label>
-    <br>
-    <input type="text" th:field="*{lastname}" id="lastname">
-    <label for="lastname">Last Name: </label>
-    <br>
-    <input type="number" th:field="*{age}" id="age">
-    <label for="age">Age: </label>
-    <input type="hidden" th:field="*{id}">
-    <br>
-    <input type="submit" value="Update">
-    <br>
-    <a href="/">Cancel</a>
-</form>
-
+<div class="row">
+    <div class="col m6 offset-m3">
+        <h3 th:text="'Updating ' + ${person.name} + ' ' + ${person.lastname}"> </h3>
+        <form th:method="POST" th:action="@{/update}" th:object="${person}" >
+            <div class="row">
+                <input type="hidden" th:field="*{id}">
+                <div class="input-field col s6">
+                    <input placeholder="Name" id="name" name="name" type="text" th:field="*{name}" class="validate">
+                    <label for="name">First Name</label>
+                </div>
+                <div class="input-field col s6">
+                    <input placeholder="last name" id="lastname" name="lastname" type="text" th:field="*{lastname}"
+                           class="validate">
+                    <label for="lastname">Last Name</label>
+                </div>
+                <div class="col m6">
+                    <input type="number" id="age" name="age" th:field="*{age}">
+                    <label for="age">Age</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m12">
+                    <button class="waves-effect waves-light btn indigo darken-3" type="submit" value="Save">Save</button>
+                    <a class="waves-effect waves-light btn red darken-3" href="/">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
 </body>
 </html>

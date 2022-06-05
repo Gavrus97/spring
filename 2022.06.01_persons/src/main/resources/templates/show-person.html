@@ -3,18 +3,27 @@
 <head>
     <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
     <title>Show details</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
 <body>
 
-<h3>Person</h3>
-<ul>
-    <li th:text="${person.getName()}"></li>
-    <li th:text="${person.getLastname()}"></li>
-    <li th:text="${person.getAge()}"></li>
-</ul>
-<div>
-    <a th:href="@{/}">Go back</a>
-</div>
+<!--<ul>-->
+<!--    <li th:text="${person.getName()}"></li>-->
+<!--    <li th:text="${person.getLastname()}"></li>-->
+<!--    <li th:text="${person.getAge()}"></li>-->
+<!--</ul>-->
 
+<ul class="collection with-header">
+    <li class="collection-header"><h4>Person</h4></li>
+    <li class="collection-item" th:text="'Name: ' + ${person.getName()}"></li>
+    <li class="collection-item" th:text="'Lastname: ' + ${person.getLastname()}"></li>
+    <li class="collection-item" th:text="'Age: ' + ${person.getAge()}"></li>
+</ul>
+
+<div style="margin-left: 30px">
+    <a style="padding: 5px; border: 0.5px black solid; border-radius: 5px; color: black; background-color: rgba(215,250,221,0.8)" th:href="@{/}">Go back</a>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>

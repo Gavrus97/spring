@@ -3,27 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>People</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
 <body>
-<h3>
-    List of Persons
-</h3>
-<div>
-    <a th:href="@{/new-person}">Add new person</a>
+<div style="width: 50%; margin-left: auto; margin-right: auto; border: 0.8px solid black">
+    <h3 style="text-align: center">
+        List of Persons
+    </h3>
+    <div style="text-align: center">
+        <a class=" btn-floating btn-large waves-effect waves-light red
+                " th:href="@{/new-person}">
+            <i class="material-icons">add</i>
+        </a>
+    </div>
+    <ul style="margin-left: 10px">
+        <li th:each="person : ${persons}">
+            <div>
+                <p style="font-size: 2rem" th:text="${person.name} + ' ' +${person.lastname}"></p>
+                <a style="border: 0.5px solid #00a6ff; background-color: rgba(0,119,255,0.2);border-radius: 5px; padding: 5px; color: black"
+                   th:href="@{/show{id}(id=${person.getId()})}">Show details</a>
+                <a style="border: 0.5px solid #00a6ff; background-color: rgba(0,119,255,0.2);border-radius: 5px; padding: 5px; color: black"
+                   th:href="@{/edit{id}(id=${person.getId()})}">Update</a>
+            </div>
+            <br>
+            <form th:method="POST" th:action="@{/delete{id}(id=${person.getId()})}" th:object="${person}">
+                <input style="background-color: rgba(255,0,0,0.44); color: black; border-radius: 5px;
+                 padding: 5px; border: red"
+                       type="submit" value="Delete">
+            </form>
+        </li>
+    </ul>
 </div>
-<ul>
-    <li th:each="person : ${persons}">
-        <div>
-            <p th:text="${person.name} + ' ' +${person.lastname}"></p>
-            <a th:href="@{/show{id}(id=${person.getId()})}">Show details</a>
-            <a th:href="@{/edit{id}(id=${person.getId()})}">Update</a>
-        </div>
-        <br>
-        <form th:method="POST" th:action="@{/delete{id}(id=${person.getId()})}" th:object="${person}">
-            <input type="submit" value="Delete">
-        </form>
-    </li>
-</ul>
 
+<script type="text/javascript" src="js/materialize.min.js"></script>
 </body>
 </html>
