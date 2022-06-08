@@ -35,9 +35,7 @@ public class PersonRepo {
      * @return person
      */
     public Person delete(int id) {
-        Person res = source.get(id);
-        source.remove(id);
-        return res;
+        return source.remove(id);
     }
 
     /**
@@ -55,9 +53,8 @@ public class PersonRepo {
      */
     public List<Person> findAll() {
         return source
-                .entrySet()
+                .values()
                 .stream()
-                .map(Map.Entry::getValue)
                 .sorted(Comparator.comparingInt(Person::getId))
                 .collect(Collectors.toList());
     }
