@@ -3,10 +3,7 @@ package de.telran.persons.repo;
 import de.telran.persons.model.Person;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
@@ -50,12 +47,7 @@ public class PersonRepo {
      * @return optional
      */
     public Optional<Person> find(int id) {
-        return source
-                .entrySet()
-                .stream()
-                .filter(x -> x.getKey() == id)
-                .map(Map.Entry::getValue)
-                .findAny();
+        return Optional.ofNullable(source.get(id));
     }
 
     /**
@@ -66,6 +58,7 @@ public class PersonRepo {
                 .entrySet()
                 .stream()
                 .map(Map.Entry::getValue)
+                .sorted(Comparator.comparingInt(Person::getId))
                 .collect(Collectors.toList());
     }
 
