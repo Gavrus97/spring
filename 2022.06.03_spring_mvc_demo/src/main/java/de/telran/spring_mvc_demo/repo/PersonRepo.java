@@ -1,11 +1,11 @@
 package de.telran.spring_mvc_demo.repo;
 
 import de.telran.spring_mvc_demo.model.Person;
-
-import java.sql.ClientInfoStatus;
+import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class PersonRepo {
 
     private List<Person> source = new ArrayList<>();
@@ -19,5 +19,9 @@ public class PersonRepo {
 
     public void add(Person person){
         source.add(person);
+    }
+
+    public Person getById(int id){
+        return source.get(id);
     }
 }
