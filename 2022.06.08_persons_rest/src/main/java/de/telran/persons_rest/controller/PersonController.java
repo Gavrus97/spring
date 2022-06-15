@@ -1,5 +1,6 @@
 package de.telran.persons_rest.controller;
 
+import de.telran.persons_rest.dto.PersonDto;
 import de.telran.persons_rest.model.Person;
 import de.telran.persons_rest.service.PersonService;
 import org.springframework.http.HttpStatus;
@@ -26,8 +27,7 @@ public class PersonController {
      * @return
      */
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Person get(@PathVariable Integer id) {
+    public PersonDto get(@PathVariable Integer id) {
         return personService.get(id);
     }
 
@@ -35,13 +35,13 @@ public class PersonController {
      * create a new person
      */
     @PostMapping
-    public Person create(@RequestBody Person person) {
+    public PersonDto create(@RequestBody PersonDto person) {
         return personService.save(person);
     }
 
     @PutMapping
-    public void edit(@RequestBody Person person) {
-        personService.save(person);
+    public void edit(@RequestBody PersonDto person) {
+        personService.edit(person);
     }
 
     @DeleteMapping("/{id}")
@@ -50,17 +50,14 @@ public class PersonController {
     }
 
     @GetMapping
-    public List<Person> getAll(@RequestParam(required = false) Optional<String>name,
+    public List<PersonDto> getAll(@RequestParam(required = false) Optional<String>name,
                                @RequestParam(required = false)Optional<String> lastName) {
         return personService.findByNameAndLastName(name,lastName);
     }
 
 
     @GetMapping("/find-by-age")
-    public List<Person> findByAge(@RequestParam("number") int number) {
+    public List<PersonDto> findByAge(@RequestParam("number") int number) {
         return personService.findByAge(number);
     }
-    // TODO create an endpoint, finding all persons with such a name. /api/persons?name=Vasya&lastname=Vasin
-    // TODO create an endpoint, finding all persons with such a lastname
-    // TODO create an endpoint finding all persons with the age larger some query parameter
 }
