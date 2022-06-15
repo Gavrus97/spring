@@ -5,6 +5,7 @@ import de.telran.persons_rest.service.PersonService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,24 +50,11 @@ public class PersonController {
     }
 
     @GetMapping
-    public List<Person> getAll() {
-        return personService.getAll();
+    public List<Person> getAll(@RequestParam(required = false) Optional<String>name,
+                               @RequestParam(required = false)Optional<String> lastName) {
+        return personService.findByNameAndLastName(name,lastName);
     }
 
-    @GetMapping("/find-by-name")
-    public List<Person> findPersonsByNameAndLastName(@RequestParam(required = false) Optional<String> name,
-                                                     @RequestParam(required = false) Optional<String> lastName) {
-        if (name.isEmpty() && lastName.isEmpty())
-            return getAll();
-
-        if (name.isPresent() && lastName.isPresent())
-            return personService.findByNameAndLastName((String) name.get(), (String) lastName.get());
-
-        if (name.isPresent())
-            return personService.findByName((String) name.get());
-        else
-            return personService.findByLastName((String) lastName.get());
-    }
 
     @GetMapping("/find-by-age")
     public List<Person> findByAge(@RequestParam("number") int number) {

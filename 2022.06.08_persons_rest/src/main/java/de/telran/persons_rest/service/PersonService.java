@@ -5,6 +5,7 @@ import de.telran.persons_rest.repo.PersonRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PersonService {
@@ -25,24 +26,18 @@ public class PersonService {
         return person;
     }
 
-    public List<Person> getAll(){
-        return personRepo.findAll();
-    }
-
     public Person get(int id){
         return personRepo.findById(id).orElseThrow();
     }
 
-    public List<Person> findByName(String name){
-        return personRepo.findAllByName(name);
-    }
-
-    public List<Person> findByLastName(String lastName){
-        return personRepo.findAllByLastname(lastName);
-    }
-
-    public List<Person> findByNameAndLastName(String name, String lastName){
-        return personRepo.findAllByNameAndLastname(name, lastName);
+    public List<Person> findByNameAndLastName(Optional<String> name, Optional<String> lastName){
+        if(name.isPresent() && lastName.isPresent())
+            return personRepo.findAllByNameIgnoreCaseAndLastnameIgnoreCase(name.get(), lastName.get());
+        if(name.isPresent())
+            return personRepo.findAllByNameIgnoreCase(name.get());
+        if(lastName.isPresent())
+            return personRepo.findAllByLastnameIgnoreCase(lastName.get());
+        return personRepo.findAll();
     }
 
     public List<Person> findByAge(int number){
