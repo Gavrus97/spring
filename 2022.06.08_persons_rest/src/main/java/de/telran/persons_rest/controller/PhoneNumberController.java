@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/phoneNumbers")
+@RequestMapping("/api/phone-numbers")
 public class PhoneNumberController {
 
     private final PhoneNumberService phoneNumberService;
