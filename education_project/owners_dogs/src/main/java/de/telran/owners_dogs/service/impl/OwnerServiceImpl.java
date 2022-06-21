@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class OwnerServiceImpl implements OwnerService {
 
     @Autowired
-    OwnerRepository repository;
+    private OwnerRepository repository;
 
     @Autowired
     DogService dogService;
