@@ -1,4 +1,4 @@
-package de.telran.owners_dogs.service.implementation;
+package de.telran.owners_dogs.service.impl;
 
 import de.telran.owners_dogs.dto.OwnerRequestDTO;
 import de.telran.owners_dogs.dto.OwnerResponseDTO;
@@ -7,7 +7,6 @@ import de.telran.owners_dogs.entity.Owner;
 import de.telran.owners_dogs.repository.OwnerRepository;
 import de.telran.owners_dogs.service.DogService;
 import de.telran.owners_dogs.service.OwnerService;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -40,8 +38,11 @@ public class OwnerServiceImpl implements OwnerService {
 
     @Override
     public void edit(int id, OwnerRequestDTO ownerDto) {
-        Owner owner = createOwner(ownerDto);
-        owner.setId(id);
+        Owner owner = getOwnerFromRepositoryById(id);
+        owner.setFirstName(ownerDto.firstName);
+        owner.setLastName(ownerDto.lastName);
+        owner.setDateOfBirth(ownerDto.dateOfBirth);
+
         repository.save(owner);
     }
 

@@ -1,4 +1,4 @@
-package de.telran.owners_dogs.service.implementation;
+package de.telran.owners_dogs.service.impl;
 
 import de.telran.owners_dogs.dto.DogRequestDTO;
 import de.telran.owners_dogs.dto.DogResponseDTO;
@@ -21,14 +21,14 @@ public class DogServiceImpl implements DogService {
 
     @Override
     public void create(DogRequestDTO dogDto) {
-        repository.save(makeDogFromDto(dogDto));
+        repository.save(convertToDogEntity(dogDto));
     }
 
     @Override
     public List<DogResponseDTO> findAll() {
         return repository.findAll()
                 .stream()
-                .map(this::makeResponseDto)
+                .map(this::convertToDogResponse)
                 .collect(Collectors.toList());
     }
 
@@ -36,7 +36,7 @@ public class DogServiceImpl implements DogService {
     public List<DogResponseDTO> findUnregistered() {
         return repository.findAllByRegistrationDateIsNull()
                 .stream()
-                .map(this::makeResponseDto)
+                .map(this::convertToDogResponse)
                 .collect(Collectors.toList());
     }
 
@@ -47,8 +47,11 @@ public class DogServiceImpl implements DogService {
 
     @Override
     public void edit(int id, DogRequestDTO dogDto) {
-        Dog dog = makeDogFromDto(dogDto);
-        dog.setId(id);
+        Dog dog = getDogById(id);
+        dog.setNickname(dogDto.nickname);
+        dog.setBreed(dogDto.breed);
+        dog.setDateOfBirth(dogDto.dateOfBirth);
+
         repository.save(dog);
     }
 
@@ -57,7 +60,7 @@ public class DogServiceImpl implements DogService {
         return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    private Dog makeDogFromDto(DogRequestDTO dogDto){
+    private Dog convertToDogEntity(DogRequestDTO dogDto) {
         return Dog.builder()
                 .nickname(dogDto.nickname)
                 .breed(dogDto.breed)
@@ -67,7 +70,7 @@ public class DogServiceImpl implements DogService {
                 .build();
     }
 
-    private DogResponseDTO makeResponseDto(Dog dog){
+    private DogResponseDTO convertToDogResponse(Dog dog) {
         return DogResponseDTO.builder()
                 .nickname(dog.getNickname())
                 .breed(dog.getBreed())

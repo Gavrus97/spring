@@ -4,7 +4,8 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Entity(name = "Dog")
+@Entity
+@Table(name = "Dog")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -29,7 +30,6 @@ public class Dog {
 
 
     @ManyToOne
-    @JoinColumn(name = "owner_id")
     private Owner owner;
 
     @Column(name = "registrationDate")
