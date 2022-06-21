@@ -26,17 +26,17 @@ public class OwnerController {
     }
 
     @GetMapping("/owners/{id}")
-    public OwnerResponseDTO getOwnerById(@PathVariable int id){
+    public OwnerResponseDTO getOwnerById(@PathVariable Integer id){
         return service.getById(id);
     }
 
     @PutMapping("/owners/{id}")
-    public void editOwner(@PathVariable int id, @RequestBody OwnerRequestDTO ownerDto){
+    public void editOwner(@PathVariable Integer id, @RequestBody OwnerRequestDTO ownerDto){
         service.edit(id, ownerDto);
     }
 
     @PutMapping("/owners/{id}/dogs/{dog_id}")
-    public OwnerResponseDTO manipulateDogs(@PathVariable("id") int id, @PathVariable("dog_id") int dogId ){
+    public OwnerResponseDTO manipulateDogs(@PathVariable("id") Integer id, @PathVariable("dog_id") Integer dogId ){
         return service.addOrDeleteDog(id, dogId);
     }
 }

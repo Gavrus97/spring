@@ -37,7 +37,7 @@ public class DogController {
     }
 
     @PutMapping("/dogs/{id}")
-    public void edit(@PathVariable int id, @RequestBody DogRequestDTO dogDto){
+    public void edit(@PathVariable Integer id, @RequestBody DogRequestDTO dogDto){
         service.edit(id, dogDto);
     }
 }

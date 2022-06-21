@@ -46,7 +46,7 @@ public class DogServiceImpl implements DogService {
     }
 
     @Override
-    public void edit(int id, DogRequestDTO dogDto) {
+    public void edit(Integer id, DogRequestDTO dogDto) {
         Dog dog = getDogById(id);
         dog.setNickname(dogDto.nickname);
         dog.setBreed(dogDto.breed);
@@ -56,7 +56,7 @@ public class DogServiceImpl implements DogService {
     }
 
     @Override
-    public Dog getDogById(int id) {
+    public Dog getDogById(Integer id) {
         return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 

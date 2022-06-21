@@ -9,11 +9,11 @@ public interface OwnerService {
 
     void create(OwnerRequestDTO ownerDto);
 
-    OwnerResponseDTO getById(int id);
+    OwnerResponseDTO getById(Integer id);
 
-    void edit(int id, OwnerRequestDTO ownerDto);
+    void edit(Integer id, OwnerRequestDTO ownerDto);
 
-    OwnerResponseDTO addOrDeleteDog(int id, int dogId);
+    OwnerResponseDTO addOrDeleteDog(Integer id, Integer dogId);
 
     List<OwnerResponseDTO> getAll();
 }

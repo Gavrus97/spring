@@ -16,7 +16,7 @@ public interface DogService {
 
     void deleteAll();
 
-    void edit(int id, DogRequestDTO dogDto);
+    void edit(Integer id, DogRequestDTO dogDto);
 
-   Dog getDogById(int id);
+   Dog getDogById(Integer id);
 }

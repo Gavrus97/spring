@@ -32,12 +32,12 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public OwnerResponseDTO getById(int id) {
+    public OwnerResponseDTO getById(Integer id) {
         return createResponseDto(getOwnerFromRepositoryById(id));
     }
 
     @Override
-    public void edit(int id, OwnerRequestDTO ownerDto) {
+    public void edit(Integer id, OwnerRequestDTO ownerDto) {
         Owner owner = getOwnerFromRepositoryById(id);
         owner.setFirstName(ownerDto.firstName);
         owner.setLastName(ownerDto.lastName);
@@ -54,7 +54,7 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public OwnerResponseDTO addOrDeleteDog(int id, int dogId) {
+    public OwnerResponseDTO addOrDeleteDog(Integer id, Integer dogId) {
         Dog dog = dogService.getDogById(dogId);
         Owner dogOwner = dog.getOwner();
         Owner owner = getOwnerFromRepositoryById(id);
