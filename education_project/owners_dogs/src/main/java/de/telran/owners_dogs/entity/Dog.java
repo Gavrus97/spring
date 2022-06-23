@@ -30,6 +30,7 @@ public class Dog {
 
 
     @ManyToOne
+    @JoinColumn(name = "owner_id")
     private Owner owner;
 
     @Column(name = "registrationDate")

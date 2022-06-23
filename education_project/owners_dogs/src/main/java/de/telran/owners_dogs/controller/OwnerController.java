@@ -35,8 +35,9 @@ public class OwnerController {
         service.edit(id, ownerDto);
     }
 
-    @PutMapping("/owners/{id}/dogs/{dog_id}")
-    public OwnerResponseDTO manipulateDogs(@PathVariable("id") Integer id, @PathVariable("dog_id") Integer dogId ){
-        return service.addOrDeleteDog(id, dogId);
+    @PutMapping("/owners/{ownerId}/dogs/{dog_id}")
+    public void manipulateDogs(@PathVariable("ownerId") Integer ownerId,
+                                           @PathVariable("dog_id") Integer dogId ){
+        service.toggleDogOwner(ownerId, dogId);
     }
 }

@@ -4,6 +4,7 @@ import de.telran.owners_dogs.dto.OwnerRequestDTO;
 import de.telran.owners_dogs.dto.OwnerResponseDTO;
 import de.telran.owners_dogs.entity.Dog;
 import de.telran.owners_dogs.entity.Owner;
+import de.telran.owners_dogs.repository.DogRepository;
 import de.telran.owners_dogs.repository.OwnerRepository;
 import de.telran.owners_dogs.service.DogService;
 import de.telran.owners_dogs.service.OwnerService;
@@ -24,7 +25,10 @@ public class OwnerServiceImpl implements OwnerService {
     private OwnerRepository repository;
 
     @Autowired
-    DogService dogService;
+    private DogRepository dogRepository;
+
+    @Autowired
+    private DogServiceImpl dogService;
 
     @Override
     public void create(OwnerRequestDTO ownerDto) {
@@ -39,9 +43,9 @@ public class OwnerServiceImpl implements OwnerService {
     @Override
     public void edit(Integer id, OwnerRequestDTO ownerDto) {
         Owner owner = getOwnerFromRepositoryById(id);
-        owner.setFirstName(ownerDto.firstName);
-        owner.setLastName(ownerDto.lastName);
-        owner.setDateOfBirth(ownerDto.dateOfBirth);
+        owner.setFirstName(ownerDto.getFirstName());
+        owner.setLastName(ownerDto.getLastName());
+        owner.setDateOfBirth(ownerDto.getDateOfBirth());
 
         repository.save(owner);
     }
@@ -54,38 +58,26 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public OwnerResponseDTO addOrDeleteDog(Integer id, Integer dogId) {
-        Dog dog = dogService.getDogById(dogId);
-        Owner dogOwner = dog.getOwner();
-        Owner owner = getOwnerFromRepositoryById(id);
+    public void toggleDogOwner(Integer ownerId, Integer dogId) {
+        Dog dog = dogRepository.findById(dogId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Owner owner = getOwnerFromRepositoryById(ownerId);
 
-        if (dogOwner == null) {
-            dog.setOwner(owner);
-            dog.setRegistrationDate(LocalDate.now());
-            owner.getDogs().add(dog);
-        }
-        else if(dogOwner.getId().equals(owner.getId())){
-            dog.setOwner(null);
-            dog.setRegistrationDate(null);
-            owner.getDogs().remove(dog);
-        }
-        else if(!dogOwner.getId().equals(owner.getId())){
-            dogOwner.getDogs().remove(dog);
-            dog.setOwner(owner);
-            dog.setRegistrationDate(LocalDate.now());
-            owner.getDogs().add(dog);
-        }
+        if(dog.getOwner().getId() != null && !dog.getOwner().getId().equals(ownerId))
+            throw new ResponseStatusException(HttpStatus.CONFLICT);
 
-        repository.save(owner);
-        return createResponseDto(owner);
+        dog.setOwner(dog.getOwner() == null ? owner : null);
+
+        dog.setRegistrationDate(dog.getOwner() == null ? LocalDate.now() : null);
+
+        dogRepository.save(dog);
     }
 
     // Creates an Owner using RequestDTO
     private Owner createOwner(OwnerRequestDTO ownerDto) {
         return Owner.builder()
-                .firstName(ownerDto.firstName)
-                .lastName(ownerDto.lastName)
-                .dateOfBirth(ownerDto.dateOfBirth)
+                .firstName(ownerDto.getFirstName())
+                .lastName(ownerDto.getLastName())
+                .dateOfBirth(ownerDto.getDateOfBirth())
                 .build();
     }
 

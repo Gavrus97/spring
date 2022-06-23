@@ -13,7 +13,7 @@ public interface OwnerService {
 
     void edit(Integer id, OwnerRequestDTO ownerDto);
 
-    OwnerResponseDTO addOrDeleteDog(Integer id, Integer dogId);
+    void toggleDogOwner(Integer ownerId, Integer dogId);
 
     List<OwnerResponseDTO> getAll();
 }

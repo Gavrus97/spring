@@ -48,29 +48,32 @@ public class DogServiceImpl implements DogService {
     @Override
     public void edit(Integer id, DogRequestDTO dogDto) {
         Dog dog = getDogById(id);
-        dog.setNickname(dogDto.nickname);
-        dog.setBreed(dogDto.breed);
-        dog.setDateOfBirth(dogDto.dateOfBirth);
+        dog.setNickname(dogDto.getNickname());
+        dog.setBreed(dogDto.getBreed());
+        dog.setDateOfBirth(dogDto.getDateOfBirth());
 
         repository.save(dog);
     }
 
     @Override
     public Dog getDogById(Integer id) {
-        return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return repository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        String.format("Dog with id [%s] does not exist", id)));
     }
 
     private Dog convertToDogEntity(DogRequestDTO dogDto) {
         return Dog.builder()
-                .nickname(dogDto.nickname)
-                .breed(dogDto.breed)
-                .dateOfBirth(dogDto.dateOfBirth)
+                .nickname(dogDto.getNickname())
+                .breed(dogDto.getBreed())
+                .dateOfBirth(dogDto.getDateOfBirth())
                 .registrationDate(null)
                 .owner(null)
                 .build();
     }
 
-    private DogResponseDTO convertToDogResponse(Dog dog) {
+    protected DogResponseDTO convertToDogResponse(Dog dog) {
         return DogResponseDTO.builder()
                 .nickname(dog.getNickname())
                 .breed(dog.getBreed())

@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface DogRepository extends JpaRepository<Dog, Integer> {
     List<Dog> findAllByRegistrationDateIsNull();
+
+    List<Dog> findAllByOwner_Id(Integer ownerId);
 }

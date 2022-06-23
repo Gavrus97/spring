@@ -28,6 +28,4 @@ public class Owner {
     @Column(name = "dateOfBirth")
     private LocalDate dateOfBirth;
 
-    @OneToMany
-    private List<Dog> dogs;
 }

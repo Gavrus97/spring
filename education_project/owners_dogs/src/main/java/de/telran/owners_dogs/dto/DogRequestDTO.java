@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class DogRequestDTO {
 
-    public String nickname;
-    public String breed;
-    public LocalDate dateOfBirth;
+    private String nickname;
+    private String breed;
+    private LocalDate dateOfBirth;
 }

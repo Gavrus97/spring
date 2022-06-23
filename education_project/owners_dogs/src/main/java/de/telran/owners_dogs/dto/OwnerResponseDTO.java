@@ -11,8 +11,8 @@ import java.util.List;
 @Builder
 public class OwnerResponseDTO {
 
-    public String name;
-    public String lastName;
-    public List<DogResponseDTO> dogs;
+    private String name;
+    private String lastName;
+    private List<DogResponseDTO> dogs;
 
 }

@@ -11,8 +11,8 @@ import java.time.LocalDate;
 @Builder
 public class DogResponseDTO {
 
-    public String nickname;
-    public String breed;
-    public Integer ownerId;
-    public LocalDate registrationDate;
+    private String nickname;
+    private String breed;
+    private Integer ownerId;
+    private LocalDate registrationDate;
 }

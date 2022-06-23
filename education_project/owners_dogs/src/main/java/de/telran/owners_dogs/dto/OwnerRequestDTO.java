@@ -9,8 +9,8 @@ import java.time.LocalDate;
 @Data
 public class OwnerRequestDTO {
 
-    public String firstName;
-    public String lastName;
-    public LocalDate dateOfBirth;
+    private String firstName;
+    private String lastName;
+    private LocalDate dateOfBirth;
 
 }
