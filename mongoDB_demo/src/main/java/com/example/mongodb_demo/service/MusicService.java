@@ -13,7 +13,14 @@ public class MusicService {
     @Autowired
     MusicRepo repo;
 
-     public List<Music> getAll(){
+    public MusicService(MusicRepo repo) {
+        this.repo = repo;
+    }
+
+    public MusicService() {
+    }
+
+    public List<Music> getAll(){
          return repo.findAll();
      }
 
